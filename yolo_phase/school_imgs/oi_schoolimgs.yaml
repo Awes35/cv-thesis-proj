@@ -1,0 +1,28 @@
+# Kollen Gruizenga
+# YOLOv5 🚀 by Ultralytics, AGPL-3.0 license
+# OpenImage v7 dataset (subset school images): https://storage.googleapis.com/openimages/web/download_v7.html
+
+
+# Train/val/test sets as 1) dir: path/to/imgs, 2) file: path/to/imgs.txt, or 3) list: [path/to/imgs1, path/to/imgs2, ..]
+path: ../data  # dataset root dir
+train: images/train  # train images (relative to 'path') 642 images
+val: images/val  # val images (relative to 'path') 81 images
+test: images/test  # test images (relative to 'path') 80 images
+
+# Classes
+names:
+  0: backpack
+  1: scissors
+  2: calculator
+  3: stapler
+  4: eraser
+  5: adhesive tape
+  6: pencil case
+  7: ruler
+  8: pen
+  9: envelope
+  10: book
+  11: laptop
+
+
+# Download script/URL (optional)
