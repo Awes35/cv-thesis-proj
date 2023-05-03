@@ -1,0 +1,76 @@
+Download data:
+get_openimages_data.ipynb
+
+Prep for TL:
+yolov5_transferlearning.ipynb
+
+Download Yolov5 Git repo:
+https://github.com/ultralytics/yolov5
+(../yolov5/)
+
+Create custom YAML file:
+oi_schoolimgs.yaml
+
+View existing pre-trained yolov5s (backbone) layers:
+../yolov5/models/yolov5s.yaml
+
+Configure Comet credentials:
+../.comet.config
+
+Initiate Transfer Learning (with 10 frozen backbone layers):
+python yolov5/train.py --img 640 --data oi_schoolimgs.yaml --weights yolov5s.pt --epochs 10 --batch 5 --freeze 10
+
+#img 640 means 640p resolution or 640px*480px, 10 frozen layers
+
+Batches = avail memory bytes / 4 / (size of tensors + trainable params)
+#yolov5s trainable params=7.2mil 
+
+Launch Comet for live training visualizations:
+https://www.comet.com/awes35#projects
+
+Evaluate TL model with validation set:
+(When in yolov5 folder)--
+python val.py --weights runs/train/exp/weights/best.pt --data ../oi_schoolimgs.yaml --img 640
+
+==car pic
+Compare to regular non-TL model on sample img:
+(When in yolov5 folder)--
+python detect.py --weights ../yolov5s.pt --source ../girl_cars.jpg
+
+Evaluate (10epoch) TL model on sample img:
+(When in yolov5 folder)-- 
+python detect.py --weights runs/train/exp/weights/best.pt --source ../girl_cars.jpg
+
+Evaluate Comprehensive (117epoch) TL model on sample img:
+python detect.py --weights ../best.pt --source ../girl_cars.jpg
+
+
+
+==video
+Compare to regular non-TL model on sample school YT video:
+python detect.py --weights ../yolov5s.pt --img 640 --source 'https://youtu.be/I1k9_AYZtJs'
+
+Evaluate (10epoch) TL model on sample school YT video:
+python detect.py --weights runs/train/exp/weights/best.pt --img 640 --source 'https://youtu.be/I1k9_AYZtJs'
+
+Evaluate Comprehensive (117epoch) TL model on sample school YT video:
+python detect.py --weights ../yolov5s_TL_best.pt --img 640 --source 'https://youtu.be/I1k9_AYZtJs'
+
+
+
+---TESTING
+Compare to regular non-TL model on sample school YT video:
+python detect.py --weights ../yolov5s.pt --source ../data/images/test/4d1ed8fe57104916.jpg
+
+Evaluate (10epoch) TL model on sample school YT video:
+python detect.py --weights runs/train/exp/weights/best.pt --source ../data/images/test/4d1ed8fe57104916.jpg
+
+Evaluate Comprehensive (117epoch) TL model on sample school YT video:
+python detect.py --weights ../yolov5s_TL_best.pt --source ../data/images/test/4d1ed8fe57104916.jpg
+
+
+
+363738fd19dee9a9.jpg 
+
+4333db2848878f71.jpg
+
